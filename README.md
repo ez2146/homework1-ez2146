@@ -1,2 +1,1 @@
-Username: ez2146
-Homework #01 - Crazy Eights
+ez2146 Homework #01 
