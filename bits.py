@@ -20,13 +20,20 @@ class BitList:
         return self.bits
 
     def arithmetic_shift_left(self):
-        raise NotImplementedError
+        self.bits = self.bits[1:] + '0'  
 
     def arithmetic_shift_right(self):
-        raise NotImplementedError
+        self.bits = self.bits[0] + self.bits[:-1]  
 
     def bitwise_and(self, other):
-        raise NotImplementedError
+        if not isinstance(other, BitList):
+            raise TypeError("Must be an instance of BitList")
+        if len(self.bits) != len(other.bits):
+            raise ValueError("Both BitLists must be the same length")
+        result = ""
+        for i in range(len(self.bits)):
+            result += str(int(self.bits[i]) & int(other.bits[i]))
+        return BitList(result)
 
     def __str__(self):
         return self.bits
@@ -39,8 +46,13 @@ class BitList:
     def decode(self, encoding="utf-8"):
         raise NotImplementedError
 
-    def chunk(self, size):
-        raise NotImplementedError
+    def chunk(self, chunk_length):
+        if len(self.bits) % chunk_length != 0:
+            raise ChunkError("BitList length is not divisible by chunk size")
+        chunks = []
+        for i in range(0, len(self.bits), chunk_length):
+            chunks.append([int(bit) for bit in self.bits[i:i + chunk_length]])
+        return chunks
 
 
 # custom exceptions
