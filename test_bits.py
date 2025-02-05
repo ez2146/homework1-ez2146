@@ -64,7 +64,6 @@ class TestBitList(unittest.TestCase):
         b = BitList('10000011011011')
         self.assertEqual(b.decode('us-ascii'), 'A[')
 
-
     def test_decode_utf8_4_bytes_multiple_chars(self):
         b = BitList('11110000100111111001100010000010111000101000001010101100')
         self.assertEqual(b.decode('utf-8'), '😂€')
